@@ -4,11 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http.Routing;
 
-// asp.net core routefactoryattribute -> 
-// https://stackoverflow.com/questions/32892557/versionedroute-attribute-implementation-for-mvc6 ->
-// https://github.com/aspnet/Mvc/blob/dev/test/WebSites/VersioningWebSite/VersionRoute.cs ->
-// https://github.com/aspnet/mvc/tree/6.0.0-rc1/test/WebSites/VersioningWebSite ->
-// https://github.com/aspnet/AspNetCore/tree/master/src/Mvc/test/WebSites/VersioningWebSite | VersionGetAttribute.cs , VersionRangeValidator.cs, VersionRouteAttribute.cs
+// Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
+// http://aspnet.codeplex.com/SourceControl/latest#Samples/WebApi/RoutingConstraintsSample/RoutingConstraints.Server/VersionedRoute.cs
+
 namespace MyUsrn.Dnc.Core
 {
     /// <summary>

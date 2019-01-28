@@ -1,4 +1,5 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
@@ -25,10 +26,17 @@ namespace MyUsrn.Dnc.Core
 
         //static readonly object lockObject = new object(); // not necessary in case of redis which handles multi-client access for you
         static string cacheId = string.Empty;
-        static ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings["CacheConnection"]);
+        static IConfigurationRoot config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+#if DEBUG
+                .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
+#endif
+                .AddJsonFile("appsettings.User.json", optional: true, reloadOnChange: true)
+                .Build();
+        static ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(config.GetSection("RedisCacheSpec")["ConnectionString"]);
         static IDatabase cache = connection.GetDatabase();
         //static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() => {
-        //    return ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings["CacheConnection"]);
+        //    return ConnectionMultiplexer.Connect(config.GetSection("RedisCacheSpec")["ConnectionString"]);
         //});
         //ConnectionMultiplexer connection = lazyConnection.Value;
 
@@ -73,7 +81,7 @@ namespace MyUsrn.Dnc.Core
             Debug.Assert(cache != null && cache.IsConnected(cacheId));
 
             // reflect changes in the persistent store
-            var cacheEntryExpiryDays = ConfigurationManager.AppSettings["CacheEntryExpiryDays"];
+            var cacheEntryExpiryDays = config.GetSection("RedisCacheSpec")["EntryExpiryDays"];
             int timeSpanFromDays = default(int);
             if (int.TryParse(cacheEntryExpiryDays, out timeSpanFromDays))
             {

@@ -6,6 +6,8 @@ This repo contains a .net core helper library that i bundle into a nuget package
 Using [nuget.org](http://nuget.org/packages/MyUsrn.Dnc.Core/) publicly accessible package feed versus an azure devops, pka visual studio 
 team services [vsts], everyone in account only accessible package feed.
 
+[![Build Status](https://dev.azure.com/myusrn/myprjn/_apis/build/status/myusrn.dnccore?branchName=master)](https://dev.azure.com/myusrn/myprjn/_build/latest?definitionId=1&branchName=master)
+
 - - -
 
 So far this package includes:

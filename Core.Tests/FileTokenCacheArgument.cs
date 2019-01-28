@@ -38,7 +38,7 @@ namespace Core.Tests
 
             var authorityBaseAddress = configSection["authorityBaseAddress"];
             tenantId = configSection["TenantId"];
-            authority = $"{authorityBaseAddress}/{tenantId}";
+            authority = $"{authorityBaseAddress}/{tenantId}"; // | /organizations | /consumers | /common
             publicClientId = configSection["PublicClientId"];
             confidentialClientId = configSection["ConfidentialClientId"];
             confidentialClientRedirectUri = configSection["ConfidentialClientRedirectUri"];
@@ -56,7 +56,8 @@ namespace Core.Tests
         [Fact]
         public async Task Used_For_PublicClientApplication_Succeeds()
         {
-            var app = new PublicClientApplication(publicClientId, authority, FileTokenCache.GetUserCache());  // tenant only wsa;
+            var app = new PublicClientApplication(publicClientId, authority, FileTokenCache.GetUserCache());
+            //var app = new PublicClientApplication(publicClientId, authority, RedisTokenCache.GetUserCache(userid));
             var accounts = await app.GetAccountsAsync();
             AuthenticationResult authResult = null;
 
@@ -102,8 +103,9 @@ namespace Core.Tests
         [Fact]
         public async Task Used_For_ConfidentialClientApplication_Succeeds()
         {
-            var app = new ConfidentialClientApplication(confidentialClientId, confidentialClientRedirectUri, 
+            var app = new ConfidentialClientApplication(confidentialClientId, confidentialClientRedirectUri,
                 new ClientCredential(confidentialClientSecret), FileTokenCache.GetUserCache(), null);
+                //new ClientCredential(confidentialClientSecret), null, RedisTokenCache.GetUserCache(userid));
             var accounts = await app.GetAccountsAsync();
             AuthenticationResult authResult = null;
 

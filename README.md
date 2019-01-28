@@ -10,11 +10,11 @@ team services [vsts], everyone in account only accessible package feed.
 
 So far this package includes:
   
-  * a file based based user TokenCache implemenation to facilitate oauth refresh token caching in public mobile/native/spa apps using microsoft authentication library [msal]
-
-  * an azure redis cache based app TokenCache implemenation to facilitate openid connect [oidc] and on-behalf of token caching in confidential web apps running across multiple servers
-
   * a RouteExAttribute implementation to enable use of query string parameter, in addition to out of the box [oob] provided request url, based web api versioning support
+
+  * a redis cache based app TokenCache implemenation to facilitate openid connect [oidc] and on-behalf of token caching in confidential web apps using microsoft authentication library [msal] and running across multiple servers
+
+  * a file based based user TokenCache implemenation to facilitate oauth refresh token caching in public mobile/native/spa apps using microsoft authentication library [msal]
 
 ### examples of using RouteExAttribute
 // GET api/values or api/v1.0/values or api/values?api-version=1.0  
@@ -25,10 +25,10 @@ public IEnumerable&lt;string&gt; Get() { . . . }
 [Route("api/v2.0/values"), RouteEx("api/values", "2.0")]  
 public IEnumerable&lt;string&gt; GetV2() { . . . }
   
-### examples of using azure redis cache based TokenCache 
-var authority = "https://login.microsoftonline.com/myaadtenant.onmicrosoft.com"  
+### examples of using azure redis cache based app TokenCache 
 var userId = context.AuthenticationTicket.Identity.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;  
-AuthenticationContext acWebApp = new AuthenticationContext(authority, new AzRedisTokenCache(userId));    
+var app = new ConfidentialClientApplication(confidentialClientId, confidentialClientRedirectUri,
+    new ClientCredential(confidentialClientSecret), null, RedisTokenCache.GetUserCache(userid));
 <br />
 
 - - - 

@@ -58,3 +58,9 @@ nuget push %temp%\packages\MyUsrn.Dnc.Core.&lt;version&gt;.symbols.nupkg -Source
 
 for redis cache learning and expermintation see [intro to redis](http://redis.io/topics/data-types-intro) using redis-cli.exe for windows found at 
 [MsOpenTech redis for windows](https://github.com/MSOpenTech/redis/) | releases | latest release | downloads | Redis-x64-3.0.500.zip  
+
+http://aspnet.codeplex.com/SourceControl/latest#Samples/WebApi/RoutingConstraintsSample/RoutingConstraints.Server/VersionedRoute.cs
+is now a dead link so for current insights see "asp.net core routefactoryattribute [ ihttprouteconstraint ]" -> 
+versionedroute attribute implementation https://stackoverflow.com/questions/32892557/versionedroute-attribute-implementation-for-mvc6 | this tutorial ->
+https://weblogs.asp.net/jongalloway/looking-at-asp-net-mvc-5-1-and-web-api-2-1-part-2-attribute-routing-with-custom-constraints
+

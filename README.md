@@ -3,7 +3,7 @@
 
 This repo contains a .net core helper library that i bundle into a nuget package for easy consumption and updating.
 
-Using [nuget.org](http://nuget.org/packages/MyUsrn.Dnc.Core/) publicly accessible package feed versus a azure devops, pka visual studio 
+Using [nuget.org](http://nuget.org/packages/MyUsrn.Dnc.Core/) publicly accessible package feed versus an azure devops, pka visual studio 
 team services [vsts], everyone in account only accessible package feed.
 
 - - -

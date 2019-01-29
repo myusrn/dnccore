@@ -16,9 +16,10 @@ namespace MyUsrn.Dnc.Core
         /// Get the user token cache
         /// </summary>
         /// <returns></returns>
-        public static TokenCache GetUserCache(/* string cachefilePath = Assembly.GetExecutingAssembly().Location + ".msalcache.bin" */)
+        public static TokenCache GetUserCache(/* string cacheFilePath = Assembly.GetExecutingAssembly().Location + ".msalcache.bin", */ bool cacheFileProtect = true)
         {
             //CacheFilePath = cacheFilePath;
+            CacheFileProtect = cacheFileProtect;
             if (userTokenCache == null)
             {
                 userTokenCache = new TokenCache();
@@ -30,6 +31,7 @@ namespace MyUsrn.Dnc.Core
 
         static readonly object FileLock = new object();
         public static readonly string CacheFilePath = Assembly.GetExecutingAssembly().Location + ".msalcache.bin";
+        public static /* readonly */ bool CacheFileProtect = false;
 
         // Triggered right before Msal needs to access the cache.
         // Reload the cache from the persistent store in case it changed since the last access.
@@ -38,7 +40,7 @@ namespace MyUsrn.Dnc.Core
             lock (FileLock)
             {
                 args.TokenCache.Deserialize(File.Exists(CacheFilePath) ? 
-                    ProtectedData.Unprotect(File.ReadAllBytes(CacheFilePath), null, DataProtectionScope.CurrentUser)
+                    (CacheFileProtect ? ProtectedData.Unprotect(File.ReadAllBytes(CacheFilePath), null, DataProtectionScope.CurrentUser) : File.ReadAllBytes(CacheFilePath))
                     : null);
             }
         }
@@ -52,7 +54,8 @@ namespace MyUsrn.Dnc.Core
                 lock (FileLock)
                 {
                     // reflect changesgs in the persistent store
-                    File.WriteAllBytes(CacheFilePath, ProtectedData.Protect(args.TokenCache.Serialize(), null, DataProtectionScope.CurrentUser));
+                    File.WriteAllBytes(CacheFilePath, (CacheFileProtect ? ProtectedData.Protect(args.TokenCache.Serialize(), null, DataProtectionScope.CurrentUser) 
+                        : args.TokenCache.Serialize()));
                     // once the write operationtakes place restore the HasStateChanged bit to filse
                     args.TokenCache.HasStateChanged = false;
                 }

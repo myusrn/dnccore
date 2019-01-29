@@ -1,15 +1,16 @@
-﻿using System;
-using MyUsrn.Dnc.Core;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using System.Text;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
-using Xunit;
-using Microsoft.Extensions.Configuration;
-using System.Linq;
+using MyUsrn.Dnc.Core;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Core.Tests
 {
@@ -20,7 +21,7 @@ namespace Core.Tests
         string aadGraphResource = "https://graph.windows.net/"; // aka scope for aad graph api
         string msftGraphResource = "https://graph.microsoft.com/"; // aka scope for msft graph api
         string[] scopes;
-        string userid, username, password, authorizationCode;
+        string uniqueId, username, password, authorizationCode;
 
         public FileTokenCacheArgument()
         {
@@ -47,17 +48,17 @@ namespace Core.Tests
             //appResource = configSection["AppResource"]; // | aadGraphResource | msftGraphResource
             scopes = new string[] { configSection["AppResource"] }; // | aadGraphResource | msftGraphResource
 
-            userid = config["UserId"];
-            username = config["Username"];
-            password = config["Password"];
-            authorizationCode = config["AuthorizationCode"];
+            uniqueId = configSection["UniqueId"];
+            username = configSection["Username"];
+            password = configSection["Password"];
+            authorizationCode = configSection["AuthorizationCode"];
         }
 
         [Fact]
         public async Task Used_For_PublicClientApplication_Succeeds()
         {
-            var app = new PublicClientApplication(publicClientId, authority, FileTokenCache.GetUserCache());
-            //var app = new PublicClientApplication(publicClientId, authority, RedisTokenCache.GetUserCache(userid));
+            var app = new PublicClientApplication(publicClientId, authority, FileTokenCache.GetUserCache(cacheFileProtect: false));
+            //var app = new PublicClientApplication(publicClientId, authority, RedisTokenCache.GetAppOrUserCache(uniqueId));
             var accounts = await app.GetAccountsAsync();
             AuthenticationResult authResult = null;
 
@@ -86,6 +87,7 @@ namespace Core.Tests
                 }
                 catch (MsalException msalex)
                 {
+                    // ErrorCode: invalid_grant, StatusCode: 400 implies you need app registrations | {public client} | api permissions | grant admin consent for {tenant name}
                     Debug.WriteLine($"Error Acquiring Token:{System.Environment.NewLine}{msalex}");
                 }
             }
@@ -94,22 +96,29 @@ namespace Core.Tests
                 Debug.WriteLine($"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}");
             }
 
-            var jwt = GetJsonWebToken(authResult.AccessToken);
-            var actual = jwt["body"]["oid"].Value<string>();
-            var expected = userid;
+            //var jwt = GetJsonWebToken(authResult.AccessToken); var actual = jwt["body"]["oid"].Value<string>();
+            //var jwt = new JwtSecurityTokenHandler().ReadJwtToken(authResult.AccessToken); var actual = jwt.Payload["oid"];
+            var actual = authResult.UniqueId;
+
+            var expected = uniqueId;
             Assert.True(actual == expected);
         }
 
         [Fact]
         public async Task Used_For_ConfidentialClientApplication_Succeeds()
         {
+// msal acquiretokenbyauthorizationcodeasync ->
+// https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-openidconnect-v2/
+// https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Acquiring-tokens-with-authorization-codes-on-web-apps
+
             var app = new ConfidentialClientApplication(confidentialClientId, confidentialClientRedirectUri,
-                new ClientCredential(confidentialClientSecret), FileTokenCache.GetUserCache(), null);
-                //new ClientCredential(confidentialClientSecret), null, RedisTokenCache.GetUserCache(userid));
+                new ClientCredential(confidentialClientSecret), FileTokenCache.GetUserCache(cacheFileProtect: false), null);
+                //new ClientCredential(confidentialClientSecret), RedisTokenCache.GetAppOrUserCache(uniqueId), null);
             var accounts = await app.GetAccountsAsync();
             AuthenticationResult authResult = null;
 
-            scopes = new string[] { msftGraphResource };
+            //scopes = new string[] { msftGraphResource };
+            //scopes = new string[] { "openid profile offline_access Mail.Read Mail.Send" };
 
             try
             {
@@ -128,6 +137,8 @@ namespace Core.Tests
                 }
                 catch (MsalException msalex)
                 {
+                    // ErrorCode: invalid_grant, StatusCode: 400 implies you need ???
+                    // ErrorCode: invalid_scope  StatusCode: 400 implies you need ???
                     Debug.WriteLine($"Error Acquiring Token:{System.Environment.NewLine}{msalex}");
                 }
             }
@@ -136,9 +147,11 @@ namespace Core.Tests
                 Debug.WriteLine($"Error Acquiring Token Silently:{System.Environment.NewLine}{ex}");
             }
 
-            var jwt = GetJsonWebToken(authResult.AccessToken);
-            var actual = jwt["body"]["oid"].Value<string>();
-            var expected = userid;
+            //var jwt = GetJsonWebToken(authResult.AccessToken); var actual = jwt["body"]["oid"].Value<string>();
+            //var jwt = new JwtSecurityTokenHandler().ReadJwtToken(authResult.AccessToken); var actual = jwt.Payload["oid"];
+            var actual = authResult.UniqueId;
+
+            var expected = uniqueId;
             Assert.True(actual == expected);
         }
 

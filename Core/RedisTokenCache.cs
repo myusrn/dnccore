@@ -41,12 +41,12 @@ namespace MyUsrn.Dnc.Core
         //ConnectionMultiplexer connection = lazyConnection.Value;
 
         /// <summary>
-        /// Get the user token cache
+        /// Get the app or user token cache
         /// </summary>
         /// <returns></returns>
-        public static TokenCache GetUserCache(string userId)
+        public static TokenCache GetAppOrUserCache(string uniqueId)
         {
-            cacheId = userId;
+            cacheId = uniqueId;
             if (userTokenCache == null)
             {
                 userTokenCache = new TokenCache();

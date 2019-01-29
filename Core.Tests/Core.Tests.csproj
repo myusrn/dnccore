@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="2.7.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
@@ -18,4 +19,9 @@
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
+  <Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of appsettings and dllimport referenced dll -->
+    <Copy SourceFiles="$(ProjectDir)appsettings.json" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="$(ProjectDir)appsettings.Development.json" DestinationFolder="$(OutputPath)" />
+    <Copy SourceFiles="$(ProjectDir)appsettings.User.json" DestinationFolder="$(OutputPath)" />
+  </Target>
 </Project>

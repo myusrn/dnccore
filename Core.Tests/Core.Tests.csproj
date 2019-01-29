@@ -22,6 +22,6 @@
   <Target Name="CopyToBin" BeforeTargets="Build"> <!-- for build and rebuild inclusion of appsettings and dllimport referenced dll -->
     <Copy SourceFiles="$(ProjectDir)appsettings.json" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="$(ProjectDir)appsettings.Development.json" DestinationFolder="$(OutputPath)" />
-    <Copy SourceFiles="$(ProjectDir)appsettings.User.json" DestinationFolder="$(OutputPath)" />
+    <Copy Condition="$(Configuration) == 'Debug'" SourceFiles="$(ProjectDir)appsettings.User.json" DestinationFolder="$(OutputPath)" />
   </Target>
 </Project>

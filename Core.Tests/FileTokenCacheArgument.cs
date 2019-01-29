@@ -110,6 +110,8 @@ namespace Core.Tests
 // msal acquiretokenbyauthorizationcodeasync ->
 // https://azure.microsoft.com/en-us/resources/samples/active-directory-dotnet-webapp-openidconnect-v2/
 // https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Acquiring-tokens-with-authorization-codes-on-web-apps
+// app registrations | {confidential client} | api permissions | add a permission | see best practices for requesting permissions ->
+// https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-permissions-and-consent
 
             var app = new ConfidentialClientApplication(confidentialClientId, confidentialClientRedirectUri,
                 new ClientCredential(confidentialClientSecret), FileTokenCache.GetUserCache(cacheFileProtect: false), null);

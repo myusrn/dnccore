@@ -11,7 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  version: "0.1.0"
+  version: '0.1.0'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)

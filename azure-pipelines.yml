@@ -36,6 +36,7 @@ steps:
 #    packagesToPack: '**/Core.csproj'
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
+#    buildProperties: authors='myusrn';owners='myusrn';Description='My .net core package'
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
 - task: NuGetCommand@2
@@ -43,5 +44,6 @@ steps:
     command: push
     nuGetFeedType: external
     publishFeedCredentials: 'nuget-org-myusrn'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     versioningScheme: byEnvVar
     versionEnvVar: version

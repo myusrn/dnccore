@@ -29,7 +29,7 @@ steps:
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
 # Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
 # dn pack -c Release -p:version=0.1.0 -p:authors=myusrn -p:description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details." Core/Core.csproj
-- script: dotnet pack -c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' 'Core/Core.csproj'
+- script: dotnet pack -c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core Dnc Environment Core Library. See Project Site link for more details.' './Core/Core.csproj'
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml

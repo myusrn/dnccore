@@ -25,7 +25,8 @@ steps:
 #    arguments: '--configuration $(buildConfiguration)'
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
-- script: dotnet pack -c $(buildConfiguration) -p:PackageVersion=$(version) './Core/Core.csproj'
+# Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg'
+- script: dotnet pack -c $(buildConfiguration) -o '$(Build.ArtifactStagingDirectory)' -p:PackageVersion=$(version) './Core/Core.csproj'
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml
@@ -37,6 +38,7 @@ steps:
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
 #    buildProperties: authors='myusrn';owners='myusrn';Description='My .net core package'
+#    packDestination: '$(Build.ArtifactStagingDirectory)'
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
 - task: NuGetCommand@2

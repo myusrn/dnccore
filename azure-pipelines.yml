@@ -27,7 +27,7 @@ variables:
   version: "0.1.0"
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
-#- script: dotnet pack /p:PackageVersion=$(Version)  # define version variable elsewhere in your pipeline
+#- script: dotnet pack /p:PackageVersion=$(version)
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml

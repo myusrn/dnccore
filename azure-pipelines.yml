@@ -25,17 +25,17 @@ steps:
 #    arguments: '--configuration $(buildConfiguration)'
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
-#- script: dotnet pack /p:PackageVersion=$(version)
+- script: dotnet pack -c $(buildConfiguration) -p:PackageVersion=$(version) './Core/Core.csproj'
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml
-- task: NuGetCommand@2
-  inputs:
-    command: pack
-    #packagesToPack: '**/*.csproj'
-    packagesToPack: '**/Core.csproj'
-    versioningScheme: byEnvVar
-    versionEnvVar: version
+#- task: NuGetCommand@2
+#  inputs:
+#    command: pack
+#    #packagesToPack: '**/*.csproj'
+#    packagesToPack: '**/Core.csproj'
+#    versioningScheme: byEnvVar
+#    versionEnvVar: version
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
 - task: NuGetCommand@2

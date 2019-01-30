@@ -16,9 +16,34 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet test $(buildConfiguration)'
+#- task: DotNetCoreCLI@2
+#  displayName: 'dotnet test $(buildConfiguration)'
+#  inputs:
+#    command: test
+#    projects: '**/*Tests/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
+
+variables:
+  version: "0.1.0"
+
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
+#- script: dotnet pack /p:PackageVersion=$(Version)  # define version variable elsewhere in your pipeline
+
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml
+- task: NuGetCommand@2
   inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    command: pack
+    #packagesToPack: '**/*.csproj'
+    packagesToPack: '**/Core.csproj'
+    versioningScheme: byEnvVar
+    versionEnvVar: version
+
+# https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'nuget-org-myusrn'
+    versioningScheme: byEnvVar
+    versionEnvVar: version

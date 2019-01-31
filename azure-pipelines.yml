@@ -17,7 +17,7 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: dotnet build $(buildConfiguration)
 
-# azure devops yaml variables -> https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azdevops&tabs=yaml%2Cbatch
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/command-line?view=azure-devops&tabs=yaml
 - script: date '+%a %x' # for ubuntu agent case vs /t for windows agent case
   displayName: show current day and date
@@ -30,16 +30,17 @@ steps:
   displayName: set an environment variable and then display all of them
 
 #- task: DotNetCoreCLI@2
-#  displayName: 'dotnet test $(buildConfiguration)'
+#  displayName: dotnet test $(buildConfiguration)
 #  inputs:
 #    command: test
-#    projects: '**/*Tests/*.csproj'
-#    arguments: '--configuration $(buildConfiguration)'
+#    projects: **/*Tests/*.csproj
+#    arguments: --configuration $(buildConfiguration)
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
-# Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
+BUILD_REPOSITORY_LOCALPATH
+# Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o $(Build.Repository.LocalPath|Build.SourcesDirectory|System.DefaultWorkingDirectory)/Core/bin/$(buildConfiguration)
 # dn pack -c Release -p:version=0.1.0 -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' ./Core/Core.csproj
-- script: dotnet pack -c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' ./Core/Core.csproj
+- script: dotnet pack -c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' -o $(Build.ArtifactStagingDirectory) ./Core/Core.csproj
   displayName: dotnet pack $(buildConfiguration) ./Core/Core.csproj
 
 #- task: DotNetCoreCLI@2
@@ -49,33 +50,33 @@ steps:
 #    packagesToPack: ./Core/Core.csproj
 #    nobuild: true
 #    arguments: -c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
-#    packDirectory: '$(Build.ArtifactStagingDirectory)'
+#    packDirectory: $(Build.ArtifactStagingDirectory)
 #    verbosityPack: Normal
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml
 #- task: NuGetCommand@2
-#  displayName: 'nuget pack $(buildConfiguration) ./Core/Core.csproj'
+#  displayName: nuget pack $(buildConfiguration) ./Core/Core.csproj
 #  inputs:
 #    command: pack
-##   packagesToPack: '**/*.csproj'
-#    packagesToPack: '**/Core.csproj'
+##   packagesToPack: **/*.csproj
+#    packagesToPack: **/Core.csproj
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
-#    buildProperties: 'authors=myusrn;description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details."'
-##    packDestination: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
+#    buildProperties: authors=myusrn;description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
+#    packDestination: $(Build.ArtifactStagingDirectory)
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
 # nuget.exe push /home/vsts/work/1/a/Core/bin/Release/Core.0.1.0.nupkg -NonInteractive -Source https://api.nuget.org/v3/index.json -ApiKey oy2mdacx642j7vavr7mqlztc4g6b4cuunae4ma6mytfbei -ConfigFile /home/vsts/work/1/Nuget/tempNuGet_16.config -Verbosity Detailed
 # nuget.exe push Core/bin/Release/Core.0.1.0.nupkg -NonInteractive -Source https://api.nuget.org/v3/index.json -ApiKey oy2mdacx642j7vavr7mqlztc4g6b4cuunae4ma6mytfbei -ConfigFile /home/vsts/work/1/Nuget/tempNuGet_16.config -Verbosity Detailed
 #- task: NuGetCommand@2
-#  displayName: 'nuget push $(buildConfiguration) ./Core/Core.csproj'
+#  displayName: nuget push $(buildConfiguration) ./Core/Core.csproj
 #  inputs:
 #    command: push
 #    nuGetFeedType: external
 #    publishFeedCredentials: 'nuget-org-myusrn'
-#    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-##    packagesToPush: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)/*.nupkg'
+#    packagesToPush: $(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg
+##    packagesToPush: $(Build.ArtifactStagingDirectory)/*.nupkg
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/release/variables?view=azdevops&viewFallbackFrom=vsts&tabs=batch
 # release pipeline path to nuget package to publish = $(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg
 #    versioningScheme: byEnvVar
@@ -89,5 +90,5 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: publish build artifacts $(buildConfiguration)
   inputs:
-    pathtoPublish: "$(Build.ArtifactStagingDirectory)"
-    artifactName: drop
+    pathtoPublish: $(Build.ArtifactStagingDirectory)
+#    artifactName: drop

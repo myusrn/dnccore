@@ -90,4 +90,4 @@ steps:
   displayName: publish build artifacts $(buildConfiguration)
   inputs:
     pathtoPublish: $(Build.ArtifactStagingDirectory)
-#    artifactName: drop
+#    artifactName: drop  # default artifact[Folder]Name setting is drop

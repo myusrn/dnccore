@@ -15,7 +15,9 @@ variables:
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: dotnet build $(buildConfiguration)
+- script: date /t
+  displayName: get the date
 
 #- task: DotNetCoreCLI@2
 #  displayName: 'dotnet test $(buildConfiguration)'
@@ -28,15 +30,15 @@ steps:
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/command-line?view=azure-devops&tabs=yaml
 #steps:
-- script: date /t
-  displayName: Get the date
-- script: dir
-  workingDirectory: $(Agent.BuildDirectory)
-  displayName: list contents of a folder
-- script: |
-    set MYVAR=foo
-    set
-  displayName: set a variable and then display all
+#- script: date /t
+#  displayName: get the date
+#- script: dir
+#  workingDirectory: $(Agent.BuildDirectory)
+#  displayName: list contents of a folder
+#- script: |
+#    set MYVAR=foo
+#    set
+#  displayName: set a variable and then display all
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
 # Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'

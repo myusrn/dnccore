@@ -29,7 +29,7 @@ steps:
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/command-line?view=azure-devops&tabs=yaml
 #steps:
 - script: date '+%a %x' # for ubuntu agent case vs /t for windows agent case
-  displayName: forget the date
+  displayName: show current day and date
 - script: ls --recursive # for ubuntu agent case vs dir for windows agent case
   workingDirectory: $(Agent.BuildDirectory)
   displayName: list contents of agent build directory

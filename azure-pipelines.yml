@@ -60,10 +60,3 @@ steps:
 # release pipeline path to nuget package to publish = $(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
-
-- task: PublishBuildArtifacts@1
-    displayName: publish artifact
-    inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: NuGet
-      parallel: true

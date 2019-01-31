@@ -26,6 +26,18 @@ steps:
 
 # azure devops yaml variables -> https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azdevops&tabs=yaml%2Cbatch
 
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/command-line?view=azure-devops&tabs=yaml
+steps:
+- script: date /t
+  displayName: Get the date
+- script: dir
+  workingDirectory: $(Agent.BuildDirectory)
+  displayName: list contents of a folder
+- script: |
+    set MYVAR=foo
+    set
+  displayName: set a variable and then display all
+
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
 # Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
 # dn pack -c Release -p:version=0.1.0 -p:authors=myusrn -p:description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details." Core/Core.csproj
@@ -71,8 +83,13 @@ steps:
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
 
+- task: DownloadBuildArtifacts@0
+  displayName: download build artifacts $(buildConfiguration)
+  inputs:
+    buildType: 'current'
+
 - task: PublishBuildArtifacts@1
-  displayName: publish artifact $(buildConfiguration)
+  displayName: publish build artifacts $(buildConfiguration)
   inputs:
     pathtoPublish: "$(Build.ArtifactStagingDirectory)"
-    artifactName: drop
+#    artifactName: drop

@@ -42,8 +42,8 @@ steps:
     packagesToPack: './Core/Core.csproj'
     versioningScheme: byEnvVar
     versionEnvVar: version
-    buildProperties: 'authors=myusrn;description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details."'
-#   packDestination: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
+#    buildProperties: 'authors=myusrn;description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details."'
+#    packDestination: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
 # nuget.exe push /home/vsts/work/1/a/Core/bin/Release/Core.0.1.0.nupkg -NonInteractive -Source https://api.nuget.org/v3/index.json -ApiKey oy2mdacx642j7vavr7mqlztc4g6b4cuunae4ma6mytfbei -ConfigFile /home/vsts/work/1/Nuget/tempNuGet_16.config -Verbosity Detailed

@@ -30,13 +30,13 @@ steps:
 #steps:
 - script: date '+%a %x' # for ubuntu agent case vs /t for windows agent case
   displayName: get the date
-- script: dir
+- script: dir --recursive
   workingDirectory: $(Agent.BuildDirectory)
   displayName: list contents of a folder
-#- script: |
-#    set MYVAR=foo
-#    set
-#  displayName: set a variable and then display all
+- script: |
+    set MYVAR=foo
+    set
+  displayName: set an environment variable and then display all of them
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
 # Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'

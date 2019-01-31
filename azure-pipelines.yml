@@ -29,12 +29,12 @@ steps:
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/command-line?view=azure-devops&tabs=yaml
 #steps:
 - script: date '+%a %x' # for ubuntu agent case vs /t for windows agent case
-  displayName: get the date
-- script: dir --recursive
+  displayName: forget the date
+- script: ls --recursive # for ubuntu agent case vs dir for windows agent case
   workingDirectory: $(Agent.BuildDirectory)
-  displayName: list contents of a folder
+  displayName: list contents of agent build directory
 - script: |
-    set MYVAR=foo
+    set myenvvar=foo
     set
   displayName: set an environment variable and then display all of them
 
@@ -83,13 +83,13 @@ steps:
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
 
-- task: DownloadBuildArtifacts@0
-  displayName: download build artifacts $(buildConfiguration)
-  inputs:
-    buildType: 'current'
+#- task: DownloadBuildArtifacts@0
+#  displayName: download build artifacts $(buildConfiguration)
+#  inputs:
+#    buildType: 'current'
 
 - task: PublishBuildArtifacts@1
   displayName: publish build artifacts $(buildConfiguration)
   inputs:
     pathtoPublish: "$(Build.ArtifactStagingDirectory)"
-#    artifactName: drop
+    artifactName: drop

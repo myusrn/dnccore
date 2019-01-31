@@ -38,8 +38,8 @@ steps:
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
 # Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o $(Build.Repository.LocalPath|Build.SourcesDirectory|System.DefaultWorkingDirectory)/Core/bin/$(buildConfiguration)
-# dn pack -c Release -p:version=0.1.0 -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' ./Core/Core.csproj
-- script: dotnet pack -c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' -o $(Build.ArtifactStagingDirectory) ./Core/Core.csproj
+# dn pack -c Release -p:PackageId=Myusrn.Dnc.Core -p:version=0.1.0 -p:authors=myusrn -p:description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details." -o d:/temp ./Core/Core.csproj
+- script: dotnet pack -c $(buildConfiguration) -p:PackageId=Myusrn.Dnc.Core -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' -o $(Build.ArtifactStagingDirectory) ./Core/Core.csproj
   displayName: dotnet pack $(buildConfiguration) ./Core/Core.csproj
 
 #- task: DotNetCoreCLI@2
@@ -48,9 +48,8 @@ steps:
 #    command: pack
 #    packagesToPack: ./Core/Core.csproj
 #    nobuild: true
-#    arguments: -c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
+#    arguments: -c $(buildConfiguration) -p:PackageId=Myusrn.Dnc.Core -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
 #    packDirectory: $(Build.ArtifactStagingDirectory)
-#    verbosityPack: Normal
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml
@@ -62,20 +61,17 @@ steps:
 #    packagesToPack: **/Core.csproj
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
-#    buildProperties: authors=myusrn;description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
+#    buildProperties: PackageId=Myusrn.Dnc.Core;authors=myusrn;description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
 #    packDestination: $(Build.ArtifactStagingDirectory)
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
-# nuget.exe push /home/vsts/work/1/a/Core/bin/Release/Core.0.1.0.nupkg -NonInteractive -Source https://api.nuget.org/v3/index.json -ApiKey oy2mdacx642j7vavr7mqlztc4g6b4cuunae4ma6mytfbei -ConfigFile /home/vsts/work/1/Nuget/tempNuGet_16.config -Verbosity Detailed
-# nuget.exe push Core/bin/Release/Core.0.1.0.nupkg -NonInteractive -Source https://api.nuget.org/v3/index.json -ApiKey oy2mdacx642j7vavr7mqlztc4g6b4cuunae4ma6mytfbei -ConfigFile /home/vsts/work/1/Nuget/tempNuGet_16.config -Verbosity Detailed
 #- task: NuGetCommand@2
 #  displayName: nuget push $(buildConfiguration) ./Core/Core.csproj
 #  inputs:
 #    command: push
 #    nuGetFeedType: external
-#    publishFeedCredentials: 'nuget-org-myusrn'
+#    publishFeedCredentials: nuget-org-myusrn
 #    packagesToPush: $(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg
-##    packagesToPush: $(Build.ArtifactStagingDirectory)/*.nupkg
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/release/variables?view=azdevops&viewFallbackFrom=vsts&tabs=batch
 # release pipeline path to nuget package to publish = $(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg
 #    versioningScheme: byEnvVar
@@ -84,7 +80,7 @@ steps:
 #- task: DownloadBuildArtifacts@0
 #  displayName: download build artifacts $(buildConfiguration)
 #  inputs:
-#    buildType: 'current'
+#    buildType: current
 
 - task: PublishBuildArtifacts@1
   displayName: publish build artifacts $(buildConfiguration)

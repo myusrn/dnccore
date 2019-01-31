@@ -39,10 +39,10 @@ steps:
   inputs:
     command: pack
 #   packagesToPack: '**/*.csproj'
-    packagesToPack: './Core/Core.csproj'
+    packagesToPack: '**/Core.csproj'
     versioningScheme: byEnvVar
     versionEnvVar: version
-#    buildProperties: 'authors=myusrn;description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details."'
+#    buildProperties: 'authors=myusrn;description=A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
 #    packDestination: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav

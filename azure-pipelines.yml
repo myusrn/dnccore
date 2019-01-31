@@ -32,6 +32,16 @@ steps:
 #- script: dotnet pack -c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' './Core/Core.csproj'
 #  displayName: 'dotnet pack $(buildConfiguration) ./Core/Core.csproj'
 
+- task: DotNetCoreCLI@2
+  displayName: dotnet pack $(buildConfiguration) ./Core/Core.csproj
+  inputs:
+    command: pack
+    packagesToPack: ./Core/Core.csproj
+    nobuild: true
+    arguments: '-c $(buildConfiguration) -p:version=$(version) -p:authors=myusrn -p:description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details."'
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
+    verbosityPack: Normal
+
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml
 #- task: NuGetCommand@2
@@ -42,7 +52,7 @@ steps:
 #    packagesToPack: '**/Core.csproj'
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
-#    buildProperties: authors=myusrn;description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
+#    buildProperties: 'authors=myusrn;description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details."'
 ##    packDestination: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav

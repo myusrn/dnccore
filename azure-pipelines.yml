@@ -62,7 +62,7 @@ steps:
 #    versionEnvVar: version
 
 - task: PublishBuildArtifacts@1
-    displayName: 'publish artifact'
+    displayName: publish artifact
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: NuGet

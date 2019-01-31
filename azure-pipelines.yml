@@ -27,7 +27,7 @@ steps:
 # azure devops yaml variables -> https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azdevops&tabs=yaml%2Cbatch
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/command-line?view=azure-devops&tabs=yaml
-steps:
+#steps:
 - script: date /t
   displayName: Get the date
 - script: dir

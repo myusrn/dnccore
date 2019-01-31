@@ -35,14 +35,14 @@ steps:
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml
 - task: NuGetCommand@2
-  #displayName: 'nuget pack $(buildConfiguration) ./Core/Core.csproj'
+  displayName: 'nuget pack $(buildConfiguration) ./Core/Core.csproj'
   inputs:
     command: pack
 ##   packagesToPack: '**/*.csproj'
     packagesToPack: '**/Core.csproj'
-    #versioningScheme: byEnvVar
-    #versionEnvVar: version
-    #buildProperties: authors=myusrn;description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
+    versioningScheme: byEnvVar
+    versionEnvVar: version
+    buildProperties: 'authors=myusrn;description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details."'
 ##   packDestination: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
@@ -60,3 +60,10 @@ steps:
 # release pipeline path to nuget package to publish = $(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version
+
+- task: PublishBuildArtifacts@1
+    displayName: 'publish artifact'
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      artifactName: NuGet
+      parallel: true

@@ -40,9 +40,9 @@ steps:
     command: pack
 ##   packagesToPack: '**/*.csproj'
     packagesToPack: '**/Core.csproj'
-    versioningScheme: byEnvVar
-    versionEnvVar: version
-    buildProperties: authors='myusrn';owners='myusrn';Description='My .net core package'
+    #versioningScheme: byEnvVar
+    #versionEnvVar: version
+    buildProperties: authors=myusrn;description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
 ##   packDestination: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)'
 
 # https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
@@ -56,6 +56,7 @@ steps:
 #    publishFeedCredentials: 'nuget-org-myusrn'
 #    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
 ##    packagesToPush: '$(Build.ArtifactStagingDirectory)/Core/bin/$(buildConfiguration)/*.nupkg'
-#    release pipeline path to nuget package to publish = $(System.ArtifactDirectory)/**/*.nupkg;!$(System.ArtifactDirectory)/**/*.symbols.nupkg
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/release/variables?view=azdevops&viewFallbackFrom=vsts&tabs=batch
+# release pipeline path to nuget package to publish = $(System.ArtifactsDirectory)/**/*.nupkg;!$(System.ArtifactsDirectory)/**/*.symbols.nupkg
 #    versioningScheme: byEnvVar
 #    versionEnvVar: version

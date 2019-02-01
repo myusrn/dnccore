@@ -3,8 +3,8 @@
   <metadata>
     <id>MyUsrn.Dnc.Core</id>  <!-- in lieu of pack -p:PackageId argument keep constant to support updates even though title may have changed -->
     <!--<id>$id$</id>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyTitle, keep constant to support updates even though title may have changed -->
-    <version>1.0.0</version>  <!-- in lieu of pack -p:version argument -->
-    <!--<version>$version</version>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyInformationalVersion to specify three part major.minor.patch vs AssemblyVersion four part major.minor.build.revision -->
+    <version>1.0.1</version>  <!-- in lieu of pack -p:version argument -->
+    <!--<version>$version$</version>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyInformationalVersion to specify three part major.minor.patch vs AssemblyVersion four part major.minor.build.revision -->
     <title>Dnc Core Library</title>
     <authors>My Username</authors>  <!-- in lieu of pack -p:authors argument -->
     <!--<authors>$author$</authors>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyCompany -->
@@ -19,14 +19,23 @@
     <releaseNotes>Updated nuspec settings for project url and readme markdown to include nupkg current version badge.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Dnc Route TokenCache</tags>
-    <!--<dependencies>
-      <dependency id="SomeOtherPackage" version="3.2.1" />
-    </dependencies>-->
+    <dependencies>
+      <!--<dependency id="SomeOtherPackage" version="3.2.1" />-->
+      <group targetFramework=".NETCoreApp2.1">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.7" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Identity.Client" version="2.7.0" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="12.0.1" exclude="Build,Analyzers" />
+        <dependency id="StackExchange.Redis" version="2.0.519" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Cryptography.ProtectedData" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
     <!--<frameworkAssemblies>
       <frameworkAssembly assemblyName="System.NotAvailableByDefault" targetFramework="netcoreapp2.1" />
     </frameworkAssemblies>-->
   </metadata>
   <files>
+    <file src="bin\Release\netcoreapp2.1\Core.dll" target="lib\netcoreapp2.1" />
     <!--<file src=".\bin\$configuration$\SomeNonNuGetDependency.*" target="lib\net452" />-->  <!-- $(TargetDir)\bin\$(ConfigurationName)\SomeSrcDependency.* -->
     <!--<file src="..\SomeNonNuGetDependency\**\*.cs" target="src" />-->  <!-- $(SolutionDir)\SomeSrcDependency\**\*.cs -->
     <file src="..\License.txt" target="" />  <!-- $(ProjectDir)\License.txt and due to name automatically sets target="content" and line isn't necessary if any other files specified -->

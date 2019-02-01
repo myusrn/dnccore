@@ -6,9 +6,11 @@ This repo contains a .net core helper library that i bundle into a nuget package
 Using [nuget.org](http://nuget.org/packages/MyUsrn.Dnc.Core/) publicly accessible package feed versus an azure devops, pka visual studio 
 team services [vsts], everyone in account only accessible package feed.
 
-[![Build Status](https://dev.azure.com/myusrn/myprjn/_apis/build/status/myusrn.dnccore?branchName=master)](https://dev.azure.com/myusrn/myprjn/_build/latest?definitionId=1&branchName=master)
 
-[![Nuget Badge](https://img.shields.io/nuget/v/MyUsrn.Dnc.Core.svg)](https://www.nuget.org/packages/MyUsrn.Dnc.Core/)
+[![build status](https://dev.azure.com/myusrn/myprjn/_apis/build/status/myusrn.dnccore?branchName=master)](https://dev.azure.com/myusrn/myprjn/_build/latest?definitionId=1&branchName=master) &nbsp; 
+[![nuget status](https://img.shields.io/nuget/v/MyUsrn.Dnc.Core.svg?colorB=brightgreen)](https://www.nuget.org/packages/MyUsrn.Dnc.Core)  
+
+[//]: # ( see https://raw.githubusercontent.com/subor/nng.NETCore/master/README.md for example of nuget | build | tests | codecov badges )
 
 - - -
 

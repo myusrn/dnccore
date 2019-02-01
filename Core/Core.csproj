@@ -15,9 +15,9 @@
 
   <PropertyGroup>
     <PackageId>MyUsrn.Dnc.Core</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Title>Dnc Core Library</Title>
-    <Authors>My Username</Authors>  <!-- controls Authors and Owners nuspec entries, no seperate option for Owners -->
+    <Authors>myusrn</Authors>  <!-- controls Authors and Owners nuspec entries, no seperate option for Owners -->
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>http://www.opensource.org/licenses/ms-pl/</PackageLicenseUrl>  <!-- will be deprecated consider using the 'license' element instead when it is enabled -->
     <!--<License>http://www.opensource.org/licenses/ms-pl/</License>-->

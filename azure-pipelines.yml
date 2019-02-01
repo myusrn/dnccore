@@ -42,6 +42,7 @@ steps:
 # dn pack -c Release -o d:/temp -p:NuspecFile=Core.nuspec ./Core/Core.csproj [ in lieu of csproj | <PropertyGroup><NuspecFile>Core.nuspec</NuspecFile></PropertyGroup> ]
 # dn pack -c Release -o d:/temp ./Core/Core.csproj [ where csproj | <PropertyGroup>contains settings that in past were defined in nuspec file and can be overridden on command line</PropertyGroup> ]
 # dn pack -c Release -o d:/temp -p:PackageReleaseNotes="whatever $(Build.SourceVersionMessage) says during pipeline execution" ./Core/Core.csproj
+# dn pack -c Release -o d:/temp --include-symbols --include-source -p:PackageReleaseNotes="whatever $(Build.SourceVersionMessage) says during pipeline execution" ./Core/Core.csproj
 # see dotnet pack use nuspec -> https://github.com/dotnet/cli/issues/2170 and dotnet pack not including lib -> 
 # https://stackoverflow.com/questions/52305975/dotnet-pack-command-along-with-nuspec-file-not-including-projects-dll
 #- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:PackageId=Myusrn.Dnc.Core -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' ./Core/Core.csproj

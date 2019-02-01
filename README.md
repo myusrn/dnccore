@@ -40,27 +40,40 @@ var app = new ConfidentialClientApplication(confidentialClientId, confidentialCl
 - - - 
 
 #### solution notes 
-continuous integration [ or delivery ] nuget package generation is carried out using azure devops hosted build and release management pipeline nuget package & publish tasks
+continuous integration / continuous delivery is accomplished out using azure devops pipeline build of nuget package and release of it into nuget feed
 
-localhost nuget package generation is carried out using following command:  
-nuget pack Core\Core.csproj -IncludeReferencedProjects -Symbols -OutputDirectory %temp%\packages -Prop Configuration=Release  
-and for reviewing package output, along with forcing use of symbols package output use following command:  
-move /y %temp%\packages\MyUsrn.Dnc.Core.&lt;version&gt;.nupkg %temp%\packages\MyUsrn.Dnc.Core.&lt;version&gt;.nupkg.zip
+localhost nuget package generation, including symbols and sources for f11 step into debugging into support, is carried out using following command:  
+```
+dotnet pack -c Release -o d:/temp -p:PackageReleaseNotes="localhost debug and test package build" --include-symbols --include-source ./Core/Core.csproj
+```   
+and for reviewing package output use following command:  
+```
+move /y d:/temp/MyUsrn.Dnc.Core.<version>.nupkg d:/temp/MyUsrn.Dnc.Core.<version>[.symbols].nupkg.zip
+```
 
-or to enable localhost nuget package dependency update every time you build the following project PostBuildEvent setting:  
-set nugetExe=&lt;some path not currently included system path environment variable&gt;\NuGet.exe  
-if /i "$(BuildingInsideVisualStudio)" == "true" if /i "$(ConfigurationName)" == "debug" (  
-&nbsp;&nbsp;%nugetExe% pack $(ProjectPath) -IncludeReferencedProjects -Symbols -OutputDirectory %temp%\packages  
-)  
+or to enable localhost nuget package reference update every time you build the following project PostBuildEvent setting:  
+```
+if /i "$(BuildingInsideVisualStudio)" == "true" if /i "$(ConfigurationName)" == "debug" (        
+  dotnet pack -o d:/temp -p:PackageReleaseNotes="localhost debug and test package build" --include-symbols --include-source $(ProjectPath)  
+)
+```  
 
 localhost nuget package publishing is carried out using following command:  
-nuget setApiKey &lt;nuget.org/symbolsource.org apikey&gt;  
-nuget push %temp%\packages\MyUsrn.Dnc.Core.&lt;version&gt;.nupkg [ -Source https://api.nuget.org/v3/index.json ]  
-where presence of symbols.nupkg will cause above to also execute nuget push %temp%\packages\MyUsrn.Dnc.Core.&lt;version&gt;.symbols.nupkg [ -Source https://nuget.smbsrc.net/ ]  
-where https://nuget.smbsrc.net/ is the feed url for symbolsource.org packages  
+```
+nuget setApiKey <nuget.org/symbolsource.org apikey>    
+nuget push %temp%\packages\MyUsrn.Dnc.Core.<version>.nupkg [ -Source https://api.nuget.org/v3/index.json ]
+```
 
-or localhost nuget package publishing, to vsts account feeed, is carried out using following command:  
-nuget push %temp%\packages\MyUsrn.Dnc.Core.&lt;version&gt;.symbols.nupkg -Source https://&lt;account&gt;.pkgs.visualstudio.com/DefaultCollection/_packaging/&lt;feed&gt;/nuget/v3/index.json -ApiKey VSTS  
+where presence of symbols.nupkg will cause above to also execute 
+```
+nuget push %temp%\packages\MyUsrn.Dnc.Core.&lt;version&gt;.symbols.nupkg [ -Source https://nuget.smbsrc.net/ ]
+```  
+where [nuget.smbsrc.net](https://nuget.smbsrc.net/) is the feed url for [symbolsource.org](http://www.symbolsource.org/) packages  
+
+or localhost nuget package publishing to [azure devops feed](https://docs.microsoft.com/en-us/azure/devops/artifacts/?view=azure-devops) is carried out using following command:  
+```
+nuget push -Source https://<account>.pkgs.visualstudio.com/DefaultCollection/_packaging/&<feed>/nuget/v3/index.json -ApiKey AzureDevOps d:/temp/MyUsrn.Dnc.Core.<version>.symbols.nupkg
+```
 
 for redis cache learning and expermintation see [intro to redis](http://redis.io/topics/data-types-intro) using redis-cli.exe for windows found at 
 [MsOpenTech redis for windows](https://github.com/MSOpenTech/redis/) | releases | latest release | downloads | Redis-x64-3.0.500.zip  
@@ -69,4 +82,3 @@ http://aspnet.codeplex.com/SourceControl/latest#Samples/WebApi/RoutingConstraint
 is now a dead link so for current insights see "asp.net core routefactoryattribute [ ihttprouteconstraint ]" -> 
 versionedroute attribute implementation https://stackoverflow.com/questions/32892557/versionedroute-attribute-implementation-for-mvc6 | this tutorial ->
 https://weblogs.asp.net/jongalloway/looking-at-asp-net-mvc-5-1-and-web-api-2-1-part-2-attribute-routing-with-custom-constraints
-

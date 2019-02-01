@@ -3,7 +3,7 @@
   <metadata>
     <id>MyUsrn.Dnc.Core</id>  <!-- in lieu of pack -p:PackageId argument keep constant to support updates even though title may have changed -->
     <!--<id>$id$</id>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyTitle, keep constant to support updates even though title may have changed -->
-    <version>0.1.1</version>  <!-- in lieu of pack -p:version argument -->
+    <version>0.1.2</version>  <!-- in lieu of pack -p:version argument -->
     <!--<version>$version</version>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyInformationalVersion to specify three part major.minor.patch vs AssemblyVersion four part major.minor.build.revision -->
     <title>Dnc Core Library</title>
     <authors>My Username</authors>  <!-- in lieu of pack -p:authors argument -->
@@ -11,12 +11,12 @@
     <owners>My Username</owners>  <!-- in lieu of pack -p:authors argument -->
     <!--<owners>$author$</owners>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyCompany -->
     <licenseUrl>http://www.opensource.org/licenses/ms-pl/</licenseUrl>
-    <projectUrl>https://github.com/myusrn/dnxcore</projectUrl>
+    <projectUrl>https://github.com/myusrn/dnccore</projectUrl>
     <iconUrl>https://avatars0.githubusercontent.com/u/3043446?v=3&amp;u=b63d6871b7b2a6ddf1262d72409ba6d31a03879c&amp;s=140</iconUrl>    
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.</description>
     <!--<description>$description$</description>-->  <!-- in lieu of pack -p:description argument -->
-    <releaseNotes>Updated package title and description and added support for defining Azure Redis based TokenCache entry expiry days.</releaseNotes>
+    <releaseNotes>Updated nuspec settings for project url and readme markdown to include nupkg current version badge.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Dnc Route TokenCache</tags>
     <!--<dependencies>

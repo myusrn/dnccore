@@ -8,6 +8,8 @@ team services [vsts], everyone in account only accessible package feed.
 
 [![Build Status](https://dev.azure.com/myusrn/myprjn/_apis/build/status/myusrn.dnccore?branchName=master)](https://dev.azure.com/myusrn/myprjn/_build/latest?definitionId=1&branchName=master)
 
+[![Nuget Badge](https://img.shields.io/nuget/v/MyUsrn.Dnc.Core.svg)](https://www.nuget.org/packages/MyUsrn.Dnc.Core/)
+
 - - -
 
 So far this package includes:

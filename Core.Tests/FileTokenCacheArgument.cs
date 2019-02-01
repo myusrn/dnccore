@@ -114,7 +114,7 @@ namespace Core.Tests
 // https://docs.microsoft.com/en-us/azure/active-directory/develop/v1-permissions-and-consent
 
             var app = new ConfidentialClientApplication(confidentialClientId, confidentialClientRedirectUri,
-                new ClientCredential(confidentialClientSecret), FileTokenCache.GetUserCache(cacheFileProtect: false), null);
+                new ClientCredential(confidentialClientSecret), FileTokenCache.GetUserCache(/* cacheFilePath: "d://temp//my.msalcache.bin", */ cacheFileProtect: false), null);
                 //new ClientCredential(confidentialClientSecret), RedisTokenCache.GetAppOrUserCache(uniqueId), null);
             var accounts = await app.GetAccountsAsync();
             AuthenticationResult authResult = null;

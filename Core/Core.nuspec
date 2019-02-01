@@ -10,15 +10,17 @@
     <!--<authors>$author$</authors>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyCompany -->
     <owners>My Username</owners>  <!-- in lieu of pack -p:authors argument -->
     <!--<owners>$author$</owners>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyCompany -->
-    <licenseUrl>http://www.opensource.org/licenses/ms-pl/</licenseUrl>
-    <projectUrl>https://github.com/myusrn/dnccore</projectUrl>
-    <iconUrl>https://avatars0.githubusercontent.com/u/3043446?v=3&amp;u=b63d6871b7b2a6ddf1262d72409ba6d31a03879c&amp;s=140</iconUrl>    
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://www.opensource.org/licenses/ms-pl/</licenseUrl>  <!-- will be deprecated consider using the 'license' element instead when it is enabled -->
+    <!--<license>http://www.opensource.org/licenses/ms-pl/</license>-->
+    <projectUrl>https://github.com/myusrn/dnccore/blob/master/README.md</projectUrl>
+    <iconUrl>https://avatars0.githubusercontent.com/u/3043446?v=3&amp;u=b63d6871b7b2a6ddf1262d72409ba6d31a03879c&amp;s=140</iconUrl>    
     <description>A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.</description>
     <!--<description>$description$</description>-->  <!-- in lieu of pack -p:description argument -->
     <releaseNotes>Updated nuspec settings for project url and readme markdown to include nupkg current version badge.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Dnc Route TokenCache</tags>
+    <RepositoryUrl>https://github.com/myusrn/dnccore</RepositoryUrl>  <!-- assigns a repositor url= element attribute setting -->
     <dependencies>
       <!--<dependency id="SomeOtherPackage" version="3.2.1" />-->
       <group targetFramework=".NETCoreApp2.1">

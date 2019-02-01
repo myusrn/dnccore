@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -8,9 +8,26 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Identity.Client" Version="2.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="4.5.0" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>MyUsrn.Dnc.Core</PackageId>
+    <Version>1.0.2</Version>
+    <Title>Dnc Core Library</Title>
+    <Authors>My Username</Authors>  <!-- controls Authors and Owners nuspec entries, no seperate option for Owners -->
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>http://www.opensource.org/licenses/ms-pl/</PackageLicenseUrl>  <!-- will be deprecated consider using the 'license' element instead when it is enabled -->
+    <!--<License>http://www.opensource.org/licenses/ms-pl/</License>-->
+    <PackageProjectUrl>https://github.com/myusrn/dnccore/blob/master/README.md</PackageProjectUrl>
+    <PackageIconUrl>https://avatars0.githubusercontent.com/u/3043446?v=3&amp;u=b63d6871b7b2a6ddf1262d72409ba6d31a03879c&amp;s=140</PackageIconUrl>
+    <Description>A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.</Description>
+    <PackageReleaseNotes>in pipeline set using -p:Build.SourceVersionMessage argument</PackageReleaseNotes>
+    <Copyright>Copyright 2019</Copyright>
+    <PackageTags>Dnc Route TokenCache</PackageTags>
+    <RepositoryUrl>https://github.com/myusrn/dnccore</RepositoryUrl>  <!-- assigns a repositor url= element attribute setting -->
+  </PropertyGroup>
 
 </Project>

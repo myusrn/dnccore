@@ -17,7 +17,7 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: dotnet build $(buildConfiguration)
 
-# https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/command-line?view=azure-devops&tabs=yaml
 - script: date '+%a %x' # for ubuntu agent case vs /t for windows agent case
   displayName: show current day and date
@@ -40,9 +40,13 @@ steps:
 # Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o $(Build.Repository.LocalPath|Build.SourcesDirectory|System.DefaultWorkingDirectory)/Core/bin/$(buildConfiguration)
 # dn pack -c Release -o d:/temp -p:PackageId=MyUsrn.Dnc.Core -p:version=0.1.0 -p:authors=myusrn -p:description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details." ./Core/Core.csproj
 # dn pack -c Release -o d:/temp -p:NuspecFile=Core.nuspec ./Core/Core.csproj [ in lieu of csproj | <PropertyGroup><NuspecFile>Core.nuspec</NuspecFile></PropertyGroup> ]
-# see dotnet pack use nuspec -> https://github.com/dotnet/cli/issues/2170
+# dn pack -c Release -o d:/temp ./Core/Core.csproj [ where csproj | <PropertyGroup>contains settings that in past were defined in nuspec file and can be overridden on command line</PropertyGroup> ]
+# dn pack -c Release -o d:/temp -p:PackageReleaseNotes="whatever $(Build.SourceVersionMessage) says during pipeline execution" ./Core/Core.csproj
+# see dotnet pack use nuspec -> https://github.com/dotnet/cli/issues/2170 and dotnet pack not including lib -> 
+# https://stackoverflow.com/questions/52305975/dotnet-pack-command-along-with-nuspec-file-not-including-projects-dll
 #- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:PackageId=Myusrn.Dnc.Core -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' ./Core/Core.csproj
-- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:NuspecFile=Core.nuspec ./Core/Core.csproj
+#- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:NuspecFile=Core.nuspec ./Core/Core.csproj
+- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:PackageReleaseNotes=$(Build.SourceVersionMessage) ./Core/Core.csproj
   displayName: dotnet pack $(buildConfiguration) ./Core/Core.csproj
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/dotnet-core-cli

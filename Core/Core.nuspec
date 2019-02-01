@@ -3,7 +3,7 @@
   <metadata>
     <id>MyUsrn.Dnc.Core</id>  <!-- in lieu of pack -p:PackageId argument keep constant to support updates even though title may have changed -->
     <!--<id>$id$</id>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyTitle, keep constant to support updates even though title may have changed -->
-    <version>0.1.3</version>  <!-- in lieu of pack -p:version argument -->
+    <version>1.0.0</version>  <!-- in lieu of pack -p:version argument -->
     <!--<version>$version</version>-->  <!-- token for legacy Properties/AssemblyInfo.cs | AssemblyInformationalVersion to specify three part major.minor.patch vs AssemblyVersion four part major.minor.build.revision -->
     <title>Dnc Core Library</title>
     <authors>My Username</authors>  <!-- in lieu of pack -p:authors argument -->

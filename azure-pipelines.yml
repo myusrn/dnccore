@@ -36,35 +36,38 @@ steps:
 #    projects: **/*Tests/*.csproj
 #    arguments: --configuration $(buildConfiguration)
 
-# https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core?view=azdevops&tabs=yaml
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/languages/dotnet-core
 # Successfully created package '/home/vsts/work/1/s/Core/bin/Release/Core.0.1.0.nupkg' is default, i.e. -o $(Build.Repository.LocalPath|Build.SourcesDirectory|System.DefaultWorkingDirectory)/Core/bin/$(buildConfiguration)
-# dn pack -c Release -p:PackageId=Myusrn.Dnc.Core -p:version=0.1.0 -p:authors=myusrn -p:description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details." -o d:/temp ./Core/Core.csproj
-- script: dotnet pack -c $(buildConfiguration) -p:PackageId=Myusrn.Dnc.Core -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' -o $(Build.ArtifactStagingDirectory) ./Core/Core.csproj
+# dn pack -c Release -o d:/temp -p:PackageId=MyUsrn.Dnc.Core -p:version=0.1.0 -p:authors=myusrn -p:description="A .Net Core [Dnc] Environment Core Library. See Project Site link for more details." ./Core/Core.csproj
+# dn pack -c Release -o d:/temp -p:NuspecFile=Core.nuspec ./Core/Core.csproj [ in lieu of csproj | <PropertyGroup><NuspecFile>Core.nuspec</NuspecFile></PropertyGroup> ]
+# see dotnet pack use nuspec -> https://github.com/dotnet/cli/issues/2170
+#- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:PackageId=Myusrn.Dnc.Core -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' ./Core/Core.csproj
+- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:NuspecFile=Core.nuspec ./Core/Core.csproj
   displayName: dotnet pack $(buildConfiguration) ./Core/Core.csproj
 
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/dotnet-core-cli
 #- task: DotNetCoreCLI@2
 #  displayName: dotnet pack $(buildConfiguration) ./Core/Core.csproj
 #  inputs:
 #    command: pack
-#    packagesToPack: ./Core/Core.csproj
-#    nobuild: true
-#    arguments: -c $(buildConfiguration) -p:PackageId=Myusrn.Dnc.Core -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
-#    packDirectory: $(Build.ArtifactStagingDirectory)
+#    configuration: $(buildConfiguration) 
+#    packDestination: $(Build.ArtifactStagingDirectory)
+#    buildProperties: NuspecFile=Core.nuspec
+##   packagesToPack: **/*.csproj
+#    packagesToPack: **/Core.csproj
 
-# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget?view=azdevops
-# https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/nuget?view=azdevops&tabs=yaml
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/nuget
 #- task: NuGetCommand@2
 #  displayName: nuget pack $(buildConfiguration) ./Core/Core.csproj
 #  inputs:
 #    command: pack
+#    configuration: $(buildConfiguration) 
+#    packDestination: $(Build.ArtifactStagingDirectory)
+#    buildProperties: NuspecFile=Core.nuspec
 ##   packagesToPack: **/*.csproj
 #    packagesToPack: **/Core.csproj
-#    versioningScheme: byEnvVar
-#    versionEnvVar: version
-#    buildProperties: PackageId=Myusrn.Dnc.Core;authors=myusrn;description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.'
-#    packDestination: $(Build.ArtifactStagingDirectory)
 
-# https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions?view=azdevops&tabs=new-nav
+# https://docs.microsoft.com/en-us/azure/devops/artifacts/feeds/feed-permissions
 #- task: NuGetCommand@2
 #  displayName: nuget push $(buildConfiguration) ./Core/Core.csproj
 #  inputs:

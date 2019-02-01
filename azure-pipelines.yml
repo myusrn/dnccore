@@ -46,7 +46,7 @@ steps:
 # https://stackoverflow.com/questions/52305975/dotnet-pack-command-along-with-nuspec-file-not-including-projects-dll
 #- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:PackageId=Myusrn.Dnc.Core -p:version=$(version) -p:authors=myusrn -p:description='A .Net Core [Dnc] Environment Core Library. See Project Site link for more details.' ./Core/Core.csproj
 #- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:NuspecFile=Core.nuspec ./Core/Core.csproj
-- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:PackageReleaseNotes=$(Build.SourceVersionMessage) ./Core/Core.csproj
+- script: dotnet pack -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory) -p:PackageReleaseNotes='$(Build.SourceVersionMessage)' ./Core/Core.csproj
   displayName: dotnet pack $(buildConfiguration) ./Core/Core.csproj
 
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/dotnet-core-cli

@@ -23,7 +23,7 @@
       <dependency id="SomeOtherPackage" version="3.2.1" />
     </dependencies>-->
     <!--<frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.NotAvailableByDefault" targetFramework=".NETFramework4.52" />
+      <frameworkAssembly assemblyName="System.NotAvailableByDefault" targetFramework="netcoreapp2.1" />
     </frameworkAssemblies>-->
   </metadata>
   <files>

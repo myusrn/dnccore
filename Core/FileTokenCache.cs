@@ -16,9 +16,10 @@ namespace MyUsrn.Dnc.Core
         /// Get the user token cache
         /// </summary>
         /// <returns></returns>
-        public static TokenCache GetUserCache(/* string cacheFilePath = Assembly.GetExecutingAssembly().Location + ".msalcache.bin", */ bool cacheFileProtect = true)
+        public static TokenCache GetUserCache(string cacheFilePath = null, bool cacheFileProtect = true)
         {
-            //CacheFilePath = cacheFilePath;
+            if (!string.IsNullOrEmpty(cacheFilePath)) CacheFilePath = cacheFilePath;
+            else CacheFilePath = Assembly.GetCallingAssembly().Location + ".msalcache.bin";
             CacheFileProtect = cacheFileProtect;
             if (userTokenCache == null)
             {
@@ -30,7 +31,7 @@ namespace MyUsrn.Dnc.Core
         }        
 
         static readonly object FileLock = new object();
-        public static readonly string CacheFilePath = Assembly.GetExecutingAssembly().Location + ".msalcache.bin";
+        public static /* readonly */ string CacheFilePath = Assembly.GetCallingAssembly().Location + ".msalcache.bin"; // doesn't produced desired default result
         public static /* readonly */ bool CacheFileProtect = false;
 
         // Triggered right before Msal needs to access the cache.

@@ -57,7 +57,7 @@ namespace Core.Tests
         [Fact]
         public async Task Used_For_PublicClientApplication_Succeeds()
         {
-            var app = new PublicClientApplication(publicClientId, authority, FileTokenCache.GetUserCache(cacheFileProtect: false));
+            var app = new PublicClientApplication(publicClientId, authority, FileTokenCache.GetUserCache(/* cacheFilePath: "d://temp//my.msalcache.bin", */ cacheFileProtect: false));
             //var app = new PublicClientApplication(publicClientId, authority, RedisTokenCache.GetAppOrUserCache(uniqueId));
             var accounts = await app.GetAccountsAsync();
             AuthenticationResult authResult = null;

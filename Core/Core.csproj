@@ -15,7 +15,7 @@
 
   <PropertyGroup>
     <PackageId>MyUsrn.Dnc.Core</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Title>Dnc Core Library</Title>
     <Authors>myusrn</Authors>  <!-- controls Authors and Owners nuspec entries, no seperate option for Owners -->
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

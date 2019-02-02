@@ -63,9 +63,9 @@ nuget setApiKey <nuget.org/symbolsource.org apikey>
 nuget push d:/temp/MyUsrn.Dnc.Core.<version>.nupkg [ -Source https://api.nuget.org/v3/index.json ]
 ```
 
-where presence of symbols.nupkg will cause above to also execute 
+where presence of symbols.nupkg will cause the following to also execute: 
 ```
-nuget push %temp%\packages\MyUsrn.Dnc.Core.&lt;version&gt;.symbols.nupkg [ -Source https://nuget.smbsrc.net/ ]
+nuget push d:/temp/MyUsrn.Dnc.Core.<version>.symbols.nupkg [ -Source https://nuget.smbsrc.net/ ]
 ```  
 where [nuget.smbsrc.net](https://nuget.smbsrc.net/) is the feed url for [symbolsource.org](http://www.symbolsource.org/) packages  
 

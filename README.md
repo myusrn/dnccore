@@ -1,10 +1,9 @@
 # dnccore
 
 
-This repo contains a .net core helper library that i bundle into a nuget package for easy consumption and updating.
+This repo contains a .net core [dnc] helper library that i bundle into a nuget package for easy consumption and updating.
 
-Using [nuget.org](http://nuget.org/packages/MyUsrn.Dnc.Core/) publicly accessible package feed versus an azure devops, pka visual studio 
-team services [vsts], everyone in account only accessible package feed.
+Using [nuget.org](http://nuget.org/packages/MyUsrn.Dnc.Core/) publicly accessible package feed versus an azure devops, pka visual studio team services [vsts], everyone in account only accessible package feed.
 
 
 [![build status](https://dev.azure.com/myusrn/myprjn/_apis/build/status/myusrn.dnccore?branchName=master)](https://dev.azure.com/myusrn/myprjn/_build/latest?definitionId=1&branchName=master) &nbsp; 
@@ -61,7 +60,7 @@ if /i "$(BuildingInsideVisualStudio)" == "true" if /i "$(ConfigurationName)" == 
 localhost nuget package publishing is carried out using following command:  
 ```
 nuget setApiKey <nuget.org/symbolsource.org apikey>    
-nuget push %temp%\packages\MyUsrn.Dnc.Core.<version>.nupkg [ -Source https://api.nuget.org/v3/index.json ]
+nuget push d:/temp/MyUsrn.Dnc.Core.<version>.nupkg [ -Source https://api.nuget.org/v3/index.json ]
 ```
 
 where presence of symbols.nupkg will cause above to also execute 

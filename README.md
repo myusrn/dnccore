@@ -1,7 +1,7 @@
 # dnccore
 
 
-This repo contains a .net core [ x-platform 5.0 and newer ] helper library that i bundle into a nuget package for easy consumption and updating.
+This repo contains a .net framework [ pka core, x-platform 5.0 and newer ] helper library that i bundle into a nuget package for easy consumption and updating.
 
 Using [nuget.org](http://nuget.org/packages/MyUsrn.Dnc.Core/) publicly accessible package feed versus an azure devops, pka visual studio team services [vsts], everyone in account only accessible package feed.
 
